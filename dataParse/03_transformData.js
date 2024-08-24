@@ -31,6 +31,7 @@ const transformData = (jsonData) => {
       return transformedData;
   
     } catch (error) {
+      
       console.error('Error transforming data:', error);
       throw error;
     }
