@@ -9,7 +9,7 @@ var securityMiddleware = require('./middleware/security');
 
 //import database file + config
 require("dotenv").config(); 
-require('./client/mongo')
+require('./client/users')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
