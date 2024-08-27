@@ -27,6 +27,14 @@ const userSchema = new Schema({
     is_admin: {
       type: Boolean,
       default: false
+    },
+    likes: {
+      type: [Number], // Array of liked site IDs 
+      default: []
+    },
+    beenTo: {
+      type: [Number], // Array of beenTo site IDs 
+      default: []
     }
   }, {
     timestamps: true

@@ -7,7 +7,9 @@ module.exports = {
     getSigninDetails,
     signinUser,
     signupUser,
-    signoutUser
+    signoutUser,
+    handleLikes,
+    handleBeenTo
   };
 
 function getUsers(queryFields) {
@@ -83,4 +85,44 @@ async function signoutUser(body) {
   }
   await daoUser.updateOne({"email": body.email}, {token: null, expire_at: null});
   return {success: true, data: "signout successful!"};
+}
+
+//handling user's liked sites - toggle boolean
+async function handleLikes (userId, id) {
+  try {
+    const user = await daoUser.findById(userId);
+    if(!user) {
+      return {success: false, error: "User not found"};
+    }
+    const siteIndex = user.likes.indexOf(id); 
+    if(id >= 0) {
+      user.likes.splice(siteIndex, 1) // unlike if already liked site
+    } else {
+      user.likes.push(id); // add to liked sites, if id doesn't alr exist
+    }
+    await user.save();
+    return {success: true, data: user.likes}
+  } catch (error) {
+    return { success: false, error: error.message } 
+  }
+}
+
+//handling user's beenTo sites - toggle boolean 
+async function handleBeenTo (userId, id) {
+  try {
+    const user = await daoUser.findById(userId);
+    if (!user) {
+      return {success: false, error: "User not found"}; 
+    }
+    const siteIndex = user.beenTo.indexOf(id);
+    if (siteIndex >=0) {
+      user.beenTo.splice(siteIndex, 1); // remove "beenTo" site if alr exists
+    } else {
+      user.beenTo.push(id); // add "beenTo" if doesn't alr exist
+    }
+    await user.save(); 
+    return {success: true, data: user.beenTo};
+  } catch (error) {
+    return {success: false, error: error.message}; 
+  }
 }

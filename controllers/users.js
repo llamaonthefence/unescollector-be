@@ -86,3 +86,22 @@ module.exports = {
         res.status(500).json({ errorMsg: err.message });
     }
   }
+
+  //handling site "likes"
+  async function handleLikes(req,res) {
+    try {
+      const {user_id} = req.params;
+      const {id} = req.body; 
+
+      console.log(`User ${user_id} toggles like for site ${id}`)
+
+      const result = await Users.handleLikes(user_id, id);
+      if(!result.success) {
+        return res.status(400).json({errorMsg: result.error})
+      }
+      res.json({likes: result.data}); 
+    } catch (error) {
+      console.error(`Error toggling like:`, error.message);
+      res.status(500).json({errorMsg: error.message})
+    }
+  }
