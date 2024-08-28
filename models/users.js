@@ -88,37 +88,39 @@ async function signoutUser(body) {
 }
 
 //handling user's liked sites - toggle boolean
-async function handleLikes (userId, id) {
+async function handleLikes (userId, siteId) {
   try {
     const user = await daoUser.findById(userId);
     if(!user) {
       return {success: false, error: "User not found"};
     }
-    const siteIndex = user.likes.indexOf(id); 
-    if(id >= 0) {
+    const siteIndex = user.likes.indexOf(siteId); 
+    
+    if(siteIndex >= 0) {
       user.likes.splice(siteIndex, 1) // unlike if already liked site
     } else {
-      user.likes.push(id); // add to liked sites, if id doesn't alr exist
+      user.likes.push(siteId); // add to liked sites, if id doesn't alr exist
     }
     await user.save();
     return {success: true, data: user.likes}
   } catch (error) {
+
     return { success: false, error: error.message } 
   }
 }
 
 //handling user's beenTo sites - toggle boolean 
-async function handleBeenTo (userId, id) {
+async function handleBeenTo (userId, siteId) {
   try {
     const user = await daoUser.findById(userId);
     if (!user) {
       return {success: false, error: "User not found"}; 
     }
-    const siteIndex = user.beenTo.indexOf(id);
+    const siteIndex = user.beenTo.indexOf(siteId);
     if (siteIndex >=0) {
       user.beenTo.splice(siteIndex, 1); // remove "beenTo" site if alr exists
     } else {
-      user.beenTo.push(id); // add "beenTo" if doesn't alr exist
+      user.beenTo.push(siteId); // add "beenTo" if doesn't alr exist
     }
     await user.save(); 
     return {success: true, data: user.beenTo};
