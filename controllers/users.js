@@ -8,7 +8,8 @@ module.exports = {
     checkSignin,
     checkPermission,
     signoutUser,
-    handleLikes
+    handleLikes,
+    handleBeenTo
   }
   
   async function getUser(req, res) {
@@ -106,3 +107,22 @@ module.exports = {
       res.status(500).json({errorMsg: error.message})
     }
   }
+
+    //handling site "likes"
+    async function handleBeenTo(req, res) {
+      try {
+        const {userId} = req.params;
+        const {siteId} = req.body; 
+  
+        console.log(`User ${userId} toggles like for site ${siteId}`)
+  
+        const result = await Users.handleBeenTo(userId, siteId);
+        if(!result.success) {
+          return res.status(400).json({errorMsg: result.error})   
+        }
+        res.json({likes: result.data}); 
+      } catch (error) {
+        console.error(`Error toggling been-to:`, error.message);
+        res.status(500).json({errorMsg: error.message})
+      }
+    }
