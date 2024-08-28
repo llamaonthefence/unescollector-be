@@ -7,7 +7,8 @@ module.exports = {
     signinUser,
     checkSignin,
     checkPermission,
-    signoutUser
+    signoutUser,
+    handleLikes
   }
   
   async function getUser(req, res) {
@@ -88,16 +89,16 @@ module.exports = {
   }
 
   //handling site "likes"
-  async function handleLikes(req,res) {
+  async function handleLikes(req, res) {
     try {
-      const {user_id} = req.params;
-      const {id} = req.body; 
+      const {userId} = req.params;
+      const {siteId} = req.body; 
 
-      console.log(`User ${user_id} toggles like for site ${id}`)
+      console.log(`User ${userId} toggles like for site ${siteId}`)
 
-      const result = await Users.handleLikes(user_id, id);
+      const result = await Users.handleLikes(userId, siteId);
       if(!result.success) {
-        return res.status(400).json({errorMsg: result.error})
+        return res.status(400).json({errorMsg: result.error})   
       }
       res.json({likes: result.data}); 
     } catch (error) {

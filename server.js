@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(securityMiddleware.checkJWT); // is just to set req.user
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 app.use('/sites', sitesRouter); 
 
 // catch 404 and forward to error handler
