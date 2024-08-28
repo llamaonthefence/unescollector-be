@@ -95,7 +95,7 @@ async function handleLikes (userId, siteId) {
       return {success: false, error: "User not found"};
     }
     const siteIndex = user.likes.indexOf(siteId); 
-    
+
     if(siteIndex >= 0) {
       user.likes.splice(siteIndex, 1) // unlike if already liked site
     } else {
@@ -117,6 +117,7 @@ async function handleBeenTo (userId, siteId) {
       return {success: false, error: "User not found"}; 
     }
     const siteIndex = user.beenTo.indexOf(siteId);
+    
     if (siteIndex >=0) {
       user.beenTo.splice(siteIndex, 1); // remove "beenTo" site if alr exists
     } else {
