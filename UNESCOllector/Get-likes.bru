@@ -1,0 +1,15 @@
+meta {
+  name: Get-likes
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:3000/api/user/66c9983888d208aac54a056b/likes
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXIiOiI2NmM5OTgzODg4ZDIwOGFhYzU0YTA1NmIiLCJlbWFpbCI6InRlc3RhY2NAZW1haWwuY29tIiwiaXNfYWRtaW4iOmZhbHNlfSwiaWF0IjoxNzI0OTE1NDEwLCJleHAiOjE3MjUwMDE4MTB9.fLnEcBjhNf1QqGZC3NhVSa-CxsNcclydGoSlQKjIe_4
+}

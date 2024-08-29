@@ -9,7 +9,9 @@ module.exports = {
     checkPermission,
     signoutUser,
     handleLikes,
-    handleBeenTo
+    handleBeenTo,
+    getUserLikes,
+    getUserBeenTo
   }
   
   async function getUser(req, res) {
@@ -101,6 +103,14 @@ module.exports = {
       if(!result.success) {
         return res.status(400).json({errorMsg: result.error})   
       }
+
+      // const updatedUser = await Users.getUser(userId);
+      // console.log("Fetched user data:", updatedUser)
+      // if(!updatedUser) {
+      //   return res.status(404).json({errorMsg: "can't fetch updated likes list"})
+      // }
+      // res.json({likes: updatedUser.likes})
+
       res.json({likes: result.data}); 
     } catch (error) {
       console.error(`Error toggling like:`, error.message);
@@ -108,7 +118,7 @@ module.exports = {
     }
   }
 
-    //handling site "likes"
+    //handling site "been to"
     async function handleBeenTo(req, res) {
       try {
         const {userId} = req.params;
@@ -126,3 +136,37 @@ module.exports = {
         res.status(500).json({errorMsg: error.message})
       }
     }
+
+    //get user's likes 
+    async function getUserLikes(req, res) {
+      try {
+        const {userId} = req.params;
+        const {userLikes} = req.body;
+
+        const result = await Users.getUserLikes(userId, userLikes);
+        if(!result.success) {
+          return res.status(400).json({errorMsg: result.error})
+        }
+        res.json({likes: result.data}); 
+      } catch (error) {
+        console.error(`Error fetching user-likes`, error.message); 
+        res.status(500).json({errorMsg: error.message})
+      }
+    }; 
+
+    //get user's been-to
+    async function getUserBeenTo(req, res) {
+      try {
+        const {userId} = req.params;
+        // const {userBeenTo} = req.body;
+
+        const result = await Users.getUserBeenTo(userId);
+        if(!result.success) {
+          return res.status(400).json({errorMsg: result.error})
+        }
+        res.json({beenTo: result.data}); 
+      } catch (error) {
+        console.error(`Error fetching user-beenTo`, error.message); 
+        res.status(500).json({errorMsg: error.message})
+      }
+    }; 
