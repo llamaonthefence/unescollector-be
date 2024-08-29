@@ -16,7 +16,9 @@ router.get('/signin', usersCtrl.getSigninDetails)
 
 /* POST likes & been-to */ 
 router.post("/:userId/likes", usersCtrl.handleLikes);
-router.post("/:userId/beenTo", usersCtrl.handleBeenTo) 
+router.post("/:userId/beenTo", usersCtrl.handleBeenTo);
+router.get("/:userId/likes", usersCtrl.getUserLikes);
+router.get("/:userId/beenTo", usersCtrl.getUserBeenTo) 
 
 /* GET user details */
 router.get('/:user_id', usersCtrl.getUser)

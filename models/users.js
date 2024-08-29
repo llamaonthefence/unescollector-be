@@ -9,7 +9,9 @@ module.exports = {
     signupUser,
     signoutUser,
     handleLikes,
-    handleBeenTo
+    handleBeenTo,
+    getUserLikes,
+    getUserBeenTo
   };
 
 function getUsers(queryFields) {
@@ -117,7 +119,7 @@ async function handleBeenTo (userId, siteId) {
       return {success: false, error: "User not found"}; 
     }
     const siteIndex = user.beenTo.indexOf(siteId);
-    
+
     if (siteIndex >=0) {
       user.beenTo.splice(siteIndex, 1); // remove "beenTo" site if alr exists
     } else {
@@ -127,5 +129,29 @@ async function handleBeenTo (userId, siteId) {
     return {success: true, data: user.beenTo};
   } catch (error) {
     return {success: false, error: error.message}; 
+  }
+}
+
+async function getUserLikes(userId) {
+  try {
+    const user = await daoUser.findById(userId).select('likes'); 
+    if(!user) {
+      throw new Error('User not found.')
+    }
+    return {success: true, data: user.likes}
+  } catch (error) {
+    return {success: false, error: error.message}
+  }
+}
+
+async function getUserBeenTo(userId) {
+  try {
+    const user = await daoUser.findById(userId).select('beenTo').exec();
+    if(!user) {
+      throw new Error('User not found.')
+    }
+    return {success: true, data: user.beenTo}
+  } catch (error) {
+    return {success: false, error: error.message}
   }
 }

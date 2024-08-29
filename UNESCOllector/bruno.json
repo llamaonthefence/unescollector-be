@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "UNESCOllector",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
