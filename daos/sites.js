@@ -14,7 +14,7 @@ const siteSchema = new Schema({
   justification: { type: String }, // Justification for the inscription
   latitude: { type: Number, required: true }, // Latitude coordinate
   longitude: { type: Number, required: true }, // Longitude coordinate
-  location: { type: String }, // Location description
+  location: { type: String }, // not useful
   region: { type: String, required: true }, // Region of the site
   revision: { type: Number }, // Number of revisions
   secondary_dates: { type: [String] }, // List of secondary dates
