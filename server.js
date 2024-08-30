@@ -14,6 +14,7 @@ require('./client/users')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var sitesRouter = require('./routes/sites');
+var adventuresRouter = require('./routes/adventure')
 
 var app = express();
 
@@ -31,7 +32,8 @@ app.use(securityMiddleware.checkJWT); // is just to set req.user
 
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
-app.use('/sites', sitesRouter); 
+app.use('/sites', sitesRouter);
+app.use('./adventure', adventuresRouter) 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
