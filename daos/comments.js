@@ -26,6 +26,10 @@ const commentSchema = new Schema({
         type: String, 
         required: true
     },
+    comment_likes: {
+        type: Number,
+        required: true
+    }, 
     created_at: {
         type: Date, 
         default: Date.now
